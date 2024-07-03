@@ -202,7 +202,7 @@ class DrunkenEscrowSystem(BaseSolanaSystem):
                 self.init_assoc_token_acct_balance,
             )
             await escrow.get_assoc_token_accounts()
-            if step == -1:
+            if step == 0:
                 await escrow.init_maker_assoc_token_accounts()
                 await escrow.init_taker_assoc_token_accounts()
                 await escrow.reset_assoc_token_acct_balances()
@@ -272,14 +272,14 @@ class DrunkenEscrowSystem(BaseSolanaSystem):
 
     async def initialStep(self) -> Dict:
         await self._init_mints()
-        escrows, amounts = await self._swap(step=-1)
+        escrows, amounts = await self._swap(step=0)
         return {
             **self._compute_swap_amount_stats(amounts),
             **self._compute_balance_spread_stats(escrows),
         }
 
     async def step(self, state, history) -> Dict:
-        escrows, amounts = await self._swap(step=len(history) - 1)
+        escrows, amounts = await self._swap(step=len(history))
         return {
             **self._compute_swap_amount_stats(amounts),
             **self._compute_balance_spread_stats(escrows),

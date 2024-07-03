@@ -1,7 +1,7 @@
 # solsim
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/logo.png" width="70%" height="70%">
+    <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/img/logo.png" width="70%" height="70%">
 </div>
 
 ---
@@ -24,14 +24,12 @@ solsim will simulate its behavior and collect its results in a structured, strai
 4. Instantiate a Simulation, call .run().
 5. Receive a [pandas](https://pandas.pydata.org/) DataFrame containing values of "watched" variables at each step in time.
 
-### Example
+### With Solana
 
 ```python
 from anchorpy import Context
 from solana.keypair import Keypair
 from solsim.simulation import Simulation
-
-# Using solana
 
 class SomeSolanaSystem(BaseSolanaSystem):
     def __init__(self):
@@ -54,10 +52,11 @@ class SomeSolanaSystem(BaseSolanaSystem):
 
 simulation = Simulation(system=SomeSolanaSystem(), watchlist=("balance"), n_steps=5)
 results = simulation.run()  # Returns pandas DataFrame of results.
+```
 
+### Without Solana
 
-# Not using solana
-
+```python
 class SomeSystem(BaseSystem):
     def __init__(self, population):
         self.pop = population
@@ -73,28 +72,38 @@ simulation = Simulation(system=SomeSystem(), watchlist=("population"), n_steps=5
 results = simulation.run()
 ```
 
+## Results Explorer
+
+solsim gives you a streamlit app to explore results, e.g.
+
+<div>
+    <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/img/results_explorer_app.png">
+</div>
+
 ## Installation
 
-Install [Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust). Then,
+First, install [Anchor](https://project-serum.github.io/anchor/getting-started/installation.html#install-rust).
+
+### Library
 
 ```sh
 pip install solsim
 ```
 
-### Development setup
+### Development
 
 Install [poetry](https://python-poetry.org/). Then,
 
 ```sh
-git clone https://github.com/cavaunpeu/solsim.git
+git clone --recurse-submodules https://github.com/cavaunpeu/solsim.git
 cd solsim
 poetry install
 poetry shell
 ```
 
-## Detailed usage
+## Detailed Usage
 
-### Using Solana
+### With Solana
 
 First, write your Solana program. solsim prefers you do this in [Anchor](https://project-serum.github.io/anchor/getting-started/introduction.html). Then,
 
@@ -117,7 +126,7 @@ Finally,
 1. Define a `watchlist`: variables (returned in `initialStep` and `step`) you'd like to "watch."
 2. Instantiate and run your simulation, e.g. `Simulation(MySystem(), watchlist, n_steps=10).run()`.
 
-### Not using Solana
+### Without Solana
 
 1. Write a system class that inherits from `BaseSystem`.
 2. Implement `initialStep` and `step` methods.
@@ -126,7 +135,7 @@ Finally,
 
 ## Examples
 
-### Drunken escrow (w/ Solana)
+### Drunken Escrow
 
 Agents are randomly paired to exchange random amounts of `foo_coin` and `bar_coin` via an Anchor escrow contract in each timestep.
 
@@ -145,7 +154,7 @@ Steps completed: 100%|███████████████████�
 3     2            83.333333         21.500000          2
 ```
 
-### Lotka-Volterra (w/o Solana)
+### Lotka-Volterra
 
 The Lotka-Volterra model is a classic dynamical system in the field of ecology that tracks the evolution of interdependent predator and prey populations.
 

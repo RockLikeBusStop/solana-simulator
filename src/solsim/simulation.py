@@ -8,8 +8,8 @@ from typing import Any, Union
 import feather
 import pandas as pd
 from tqdm.auto import tqdm
+import typer
 
-from solsim.cli import CLI
 from solsim.system import BaseSystem, BaseSolanaSystem
 from solsim.type import StateType
 
@@ -24,8 +24,18 @@ class Simulation:
         self._n_steps = n_steps
 
     @property
-    def cli(self):
-        return CLI(self)
+    def cli(self) -> typer.Typer:
+        app = typer.Typer()
+
+        @app.command()  # type: ignore
+        def run(num_runs: int = 1, viz_results: bool = False) -> pd.DataFrame:
+            return self.run(num_runs, viz_results)
+
+        @app.callback()  # type: ignore
+        def callback() -> None:
+            pass
+
+        return app
 
     def run(self, num_runs: int = 1, visualize_results: bool = False) -> pd.DataFrame:
         """Run your simulation.

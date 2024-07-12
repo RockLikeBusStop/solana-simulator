@@ -8,16 +8,19 @@
 
 <!-- Badges -->
 
-<div align="center">
-
 [![Discord Chat](https://img.shields.io/discord/889577356681945098?color=blueviolet)](https://discord.gg/sxy4zxBckh)
+[![Downloads](https://pepy.tech/badge/solsim)](https://pepy.tech/project/solsim)
 
 <!-- Tests and Lint Badges -->
 
+<div>
 <img alt="Tests" src="https://github.com/cavaunpeu/solsim/actions/workflows/tests.yml/badge.svg">
 <img alt="Lint" src="https://github.com/cavaunpeu/solsim/actions/workflows/lint.yml/badge.svg">
-
 </div>
+
+---
+
+## Introduction
 
 solsim is the Solana complex systems simulator. It simulates behavior of dynamical systems—DeFi protocols, DAO governance, cryptocurrencies, and more—built on the [Solana](https://solana.com/) blockchain.
 
@@ -29,10 +32,10 @@ solsim will simulate its behavior and collect its results in a structured, strai
 
 ## Usage
 
-1. Implement `initialStep` and `step` methods.
+1. Implement `initial_step` and `step` methods.
 2. From each, return the current state, i.e. a dictionary mapping variables to current values.
 3. Specify the variables you'd like to "watch."
-4. Instantiate a Simulation, call .run().
+4. Instantiate a Simulation, call `.run()`.
 5. Receive a [pandas](https://pandas.pydata.org/) DataFrame containing values of "watched" variables at each step in time.
 
 ### With Solana
@@ -49,7 +52,7 @@ class SomeSolanaSystem(BaseSolanaSystem):
         self.pubkey = self.account.public_key
         self.program = self.workspace["my_anchor_program"]  # solsim gives a Anchor program workspace (self.workspace).
 
-    async def initialStep(self):
+    async def initial_step(self):
         self.program.rpc["initialize"]()  # Make RPC calls to your Anchor program.
         await self.client.request_airdrop(self.pubkey, 10)  # solsim gives you a Solana API client (self.client).
         return {"balance": await self.client.get_balance(self.pubkey)}
@@ -72,7 +75,7 @@ class SomeSystem(BaseSystem):
     def __init__(self, population):
         self.pop = population
 
-    def initialStep(self):
+    def initial_step(self):
         return {"population": self.pop}
 
     def step(self, state, history):
@@ -83,6 +86,13 @@ simulation = Simulation(system=SomeSystem(), watchlist=("population"), n_steps=5
 results = simulation.run()
 ```
 
+## CLI
+
+Simulations can also be run via CLI. Instead of calling `simulation.run()`, simply:
+
+1. Call `simulation.cli()`
+2. Run your simulation as e.g. `python path/to/file.py run --num-runs 3`
+
 ## Results Explorer
 
 solsim gives you a streamlit app to explore results, e.g.
@@ -90,6 +100,11 @@ solsim gives you a streamlit app to explore results, e.g.
 <div>
     <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/img/results_explorer_app.png">
 </div>
+
+To automatically start this app following simulation, invoke one of the following:
+
+- `simulation.run(visualize_results=True)`
+- `--viz-results` flag in the CLI runner, e.g. `python path/to/file.py run --viz-results`
 
 ## Installation
 
@@ -120,7 +135,7 @@ First, write your Solana program. solsim prefers you do this in [Anchor](https:/
 
 1. Write a system class that inherits from `BaseSolanaSystem`.
 2. Call `super().__init__("path/to/program")` in its `__init__`.
-3. Implement `initialStep` and `step` methods. (Since you'll interact with Solana asynchronously, these methods should be `async`.)
+3. Implement `initial_step` and `step` methods. (Since you'll interact with Solana asynchronously, these methods should be `async`.)
 
 In `2.`, solsim exposes the following attributes to your system instance:
 
@@ -134,13 +149,13 @@ This client lets you interact with Solana's RPC endpoints. Documentation [here](
 
 Finally,
 
-1. Define a `watchlist`: variables (returned in `initialStep` and `step`) you'd like to "watch."
+1. Define a `watchlist`: variables (returned in `initial_step` and `step`) you'd like to "watch."
 2. Instantiate and run your simulation, e.g. `Simulation(MySystem(), watchlist, n_steps=10).run()`.
 
 ### Without Solana
 
 1. Write a system class that inherits from `BaseSystem`.
-2. Implement `initialStep` and `step` methods.
+2. Implement `initial_step` and `step` methods.
 3. Define a `watchlist`.
 4. Instantiate and run your simulation.
 

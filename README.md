@@ -1,34 +1,14 @@
-# solsim
-
-<div align="center">
-    <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/img/logo.png" width="70%" height="70%">
-</div>
-
----
-
-<!-- Badges -->
-
-[![Discord Chat](https://img.shields.io/discord/889577356681945098?color=blueviolet)](https://discord.gg/sxy4zxBckh)
-[![Downloads](https://pepy.tech/badge/solsim)](https://pepy.tech/project/solsim)
-
-<!-- Tests and Lint Badges -->
-
-<div>
-<img alt="Tests" src="https://github.com/cavaunpeu/solsim/actions/workflows/tests.yml/badge.svg">
-<img alt="Lint" src="https://github.com/cavaunpeu/solsim/actions/workflows/lint.yml/badge.svg">
-</div>
-
----
+# Solana Simulator
 
 ## Introduction
 
-solsim is the Solana complex systems simulator. It simulates behavior of dynamical systems—DeFi protocols, DAO governance, cryptocurrencies, and more—built on the [Solana](https://solana.com/) blockchain.
+Solana Simulator is the Solana complex systems simulator. It simulates behavior of dynamical systems—DeFi protocols, DAO governance, cryptocurrencies, and more—built on the [Solana](https://solana.com/) blockchain.
 
 ## Philosophy
 
 Define your system how you see fit.
 
-solsim will simulate its behavior and collect its results in a structured, straightforward manner.
+Solana Simulator will simulate its behavior and collect its results in a structured, straightforward manner.
 
 ## Usage
 
@@ -95,7 +75,7 @@ Simulations can also be run via CLI. Instead of calling `simulation.run()`, simp
 
 ## Results Explorer
 
-solsim gives you a streamlit app to explore results, e.g.
+Solana Simulator gives you a streamlit app to explore results, e.g.
 
 <div>
     <img src="https://raw.githubusercontent.com/cavaunpeu/solsim/main/img/results_explorer_app.png">
@@ -131,13 +111,13 @@ poetry shell
 
 ### With Solana
 
-First, write your Solana program. solsim prefers you do this in [Anchor](https://project-serum.github.io/anchor/getting-started/introduction.html). Then,
+First, write your Solana program. Solana Simulator prefers you do this in [Anchor](https://project-serum.github.io/anchor/getting-started/introduction.html). Then,
 
 1. Write a system class that inherits from `BaseSolanaSystem`.
 2. Call `super().__init__("path/to/program")` in its `__init__`.
 3. Implement `initial_step` and `step` methods. (Since you'll interact with Solana asynchronously, these methods should be `async`.)
 
-In `2.`, solsim exposes the following attributes to your system instance:
+In `2.`, Solana Simulator exposes the following attributes to your system instance:
 
 - `self.workspace`: IDL clients for the Solana programs that comprise your system (via [anchorpy](https://github.com/kevinheavey/anchorpy)).
 
@@ -202,4 +182,4 @@ This implementation inspired by [cadCAD Edu](https://www.cadcad.education/).
 
 ## Inspiration
 
-solsim humbly builds on the shoulders of the giants that are [cadCAD](https://github.com/cadCAD-org/cadCAD) and [tokenspice](https://github.com/tokenspice/tokenspice), among others.
+Solana Simulator humbly builds on the shoulders of the giants that are [cadCAD](https://github.com/cadCAD-org/cadCAD) and [tokenspice](https://github.com/tokenspice/tokenspice), among others.

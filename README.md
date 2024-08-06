@@ -146,7 +146,7 @@ Finally,
 Agents are randomly paired to exchange random amounts of `foo_coin` and `bar_coin` via an Anchor escrow contract in each timestep.
 
 - Run: `python -m examples.drunken_escrow`.
-- Code: [here](https://github.com/cavaunpeu/solsim/tree/main/examples/drunken_escrow).
+- Code: [here](https://github.com/RockLikeBusStop/solana-simulator/tree/main/examples/drunken_escrow).
 - Expected output (numbers may vary):
 
 ```
@@ -165,7 +165,7 @@ Steps completed: 100%|███████████████████�
 The Lotka-Volterra model is a classic dynamical system in the field of ecology that tracks the evolution of interdependent predator and prey populations.
 
 - Run: `python -m examples.lotka_volterra`.
-- Code: [here](https://github.com/cavaunpeu/solsim/tree/main/examples/lotka_volterra).
+- Code: [here](https://github.com/RockLikeBusStop/solana-simulator/tree/main/examples/lotka_volterra).
 - Expected output:
 
 ```
@@ -177,9 +177,3 @@ Steps completed: 100%|███████████████████�
 2     1      989.000            69.95
 3     2      982.005            79.84
 ```
-
-This implementation inspired by [cadCAD Edu](https://www.cadcad.education/).
-
-## Inspiration
-
-Solana Simulator humbly builds on the shoulders of the giants that are [cadCAD](https://github.com/cadCAD-org/cadCAD) and [tokenspice](https://github.com/tokenspice/tokenspice), among others.

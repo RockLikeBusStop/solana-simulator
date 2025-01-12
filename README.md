@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Solana Simulator is the Solana complex systems simulator. It simulates behavior of dynamical systems—DeFi protocols, DAO governance, cryptocurrencies, and more—built on the [Solana](https://solana.com/) blockchain.
+Solana Simulator simulates behavior of dynamical systems—DeFi protocols, DAO governance, cryptocurrencies, and more—built on the [Solana](https://solana.com/) blockchain.
 
 ## Philosophy
 
